@@ -1,0 +1,202 @@
+* {
+    font-size: x-large;
+}
+html {
+    background-color: black;
+}
+sup, sub {
+    font-size: small;
+}
+@font-face{
+    font-family: 'digital-clock-font';
+    src:url('digital-7\ \(mono\).ttf')
+}
+#calculator {
+    position: fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    width:912px;
+    height:988px;
+    border:2px solid;
+    background-color: #8D8741;
+}
+#screen {
+    position:absolute;
+    top:38px;
+    left:38px;
+    width:832px;
+    height:76px;
+    border:2px solid;
+    background-color: grey;
+}
+button {
+    width:76px;
+    height:76px;
+    margin-left:38px;
+    margin-top:38px;
+    background-color:#659DBD;
+}
+button:hover {
+    background-color: white;
+}
+#arrows {
+    position:absolute;
+    left:608px;
+    top:114px;
+    height:304px;
+    width:304px;
+    
+}
+#arrows > button {
+    position:absolute;
+    margin:0;
+    background-color:#DAAD86;
+}
+#arrows > button:hover {
+    background-color: white;
+}
+#up {
+    top:38px;
+    left:114px;
+}
+#right {
+    top:114px;
+    left:190px;
+}
+#down {
+    top:190px;
+    left:114px;
+}
+#left {
+    top:114px;
+    left:38px;
+}
+#numpad {
+    position:absolute;
+    left:266px;
+    top:494px;
+    width:380px;
+    height:494px;
+}
+#numpad > button {
+    background-color:#FBEEC1;
+}
+#numpad > button:hover {
+    background-color: white;
+}
+#operators {
+    position:absolute;
+    left:684px;
+    top:380px;
+    width:152px;
+    height:608px;
+    
+}
+#operators > button{
+    background-color:#DAAD86;
+}
+#operators > button:hover {
+    background-color: white;
+}
+#first_buttons {
+    position:absolute;
+    width:608px;
+    height:380px;
+    top:114px;
+    left:0px;
+    
+}
+#first_buttons > button {
+    position: absolute;
+}
+/*These are all positioning attributes for first_buttons*/
+#second{
+    font-size: large;}
+#angle_mode{
+    left:114px;
+    font-size: medium;}
+#delete{
+    left:228px;
+    font-size: large;}
+#logarithm{
+    left:342px;
+    font-size: large;}
+#functions{
+    left:456px;
+    font-size: large;}
+#angle_modifier{
+    top:114px;
+    font-size: medium;}
+#natural_log{
+    left:114px;
+    top:114px;
+    font-size: large;}
+#fraction{
+    left:228px;
+    top:114px;
+    font-size: small;}
+#data{
+    left:342px;
+    top:114px;
+    font-size: large;}
+#statvar{
+    left:456px;
+    top:114px;
+    font-size: small;}
+#pi{
+    top:228px;
+    font-size: large;}
+#sine{
+    left:114px;
+    top:228px;
+    font-size: large;}
+#cosine{
+    left:228px;
+    top:228px;
+    font-size: large;}
+#tangent{
+    left:342px;
+    top:228px;
+    font-size: large;}
+#clear{
+    left:456px;
+    top:228px;
+    font-size: large;}
+#second_buttons{
+    position: absolute;
+    top:456px;
+    left:0px;
+    width:266px;
+    height:494px;
+    
+}
+#second_buttons > button {
+    position:absolute;
+}
+#power{
+    font-size: large;}
+#reciprocal{
+    left:114px;
+    font-size: large;}
+#left_p{
+    top:114px;
+    font-size: large;}
+#right_p{
+    left:114px;
+    top:114px;
+    font-size: large;}
+#square{
+    top:228px;
+    font-size: large;}
+#variable{
+    left:114px;
+    top:228px;
+    font-size: small;}
+#onoff{
+    top:342px;
+    font-size: large;}
+#store{
+    left:114px;
+    top:342px;
+    font-size: large;}
