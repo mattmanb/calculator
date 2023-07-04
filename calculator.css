@@ -19,7 +19,7 @@ sup, sub {
     width:912px;
     height:988px;
     border:2px solid;
-    background-color: #8D8741;
+    background-color: #e0e4e8;
 }
 #screen {
     position:absolute;
@@ -30,15 +30,41 @@ sup, sub {
     border:2px solid;
     background-color: grey;
 }
+#displayOne, #displayTwo {
+    display:none;
+    position: absolute;
+    height:30px;
+    left:5px;
+    width:818px;
+    font-size: xx-large;
+}
+#displayOne {
+    bottom:8px;
+}
+#displayTwo {
+    top:8px;
+}
 button {
     width:76px;
     height:76px;
     margin-left:38px;
     margin-top:38px;
-    background-color:#659DBD;
+    background-color:#96b3ce;
 }
 button:hover {
-    background-color: white;
+    background-color: yellow;
+}
+#second {
+    background-color: rgb(235, 104, 104);
+}
+#second:hover {
+    background-color: yellow;
+}
+#clear {
+    background-color: rgb(235, 104, 104);
+}
+#clear:hover {
+    background-color: yellow;
 }
 #arrows {
     position:absolute;
@@ -51,10 +77,10 @@ button:hover {
 #arrows > button {
     position:absolute;
     margin:0;
-    background-color:#DAAD86;
+    background-color:#b0b987;
 }
 #arrows > button:hover {
-    background-color: white;
+    background-color: yellow;
 }
 #up {
     top:38px;
@@ -80,10 +106,10 @@ button:hover {
     height:494px;
 }
 #numpad > button {
-    background-color:#FBEEC1;
+    background-color:#b0b987;
 }
 #numpad > button:hover {
-    background-color: white;
+    background-color: yellow;
 }
 #operators {
     position:absolute;
@@ -94,10 +120,10 @@ button:hover {
     
 }
 #operators > button{
-    background-color:#DAAD86;
+    background-color:#b0b987;
 }
 #operators > button:hover {
-    background-color: white;
+    background-color: yellow;
 }
 #first_buttons {
     position:absolute;

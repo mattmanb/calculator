@@ -11,7 +11,8 @@
     <body>
         <div id="calculator">
             <div id="screen">
-                
+                <p id="displayOne"></p>
+                <p id="displayTwo"></p>
             </div>
             <div id="arrows">
                 <button id="up">⬆</button>
@@ -20,25 +21,25 @@
                 <button id="left">⬅</button>
             </div>
             <div id="numpad">
-                <button id="seven">7</button>
-                <button id="eight">8</button>
-                <button id="nine">9</button>
-                <button id="four">4</button>
-                <button id="five">5</button>
-                <button id="six">6</button>
-                <button id="one">1</button>
-                <button id="two">2</button>
-                <button id="three">3</button>
-                <button id="zero">0</button>
-                <button id="decimal">.</button>
-                <button id="negative">(-)</button>
+                <button id="seven" onclick="concatStatement('7')">7</button>
+                <button id="eight" onclick="concatStatement('8')">8</button>
+                <button id="nine" onclick="concatStatement('9')">9</button>
+                <button id="four" onclick="concatStatement('4')">4</button>
+                <button id="five" onclick="concatStatement('5')">5</button>
+                <button id="six" onclick="concatStatement('6')">6</button>
+                <button id="one" onclick="concatStatement('1')">1</button>
+                <button id="two" onclick="concatStatement('2')">2</button>
+                <button id="three" onclick="concatStatement('3')">3</button>
+                <button id="zero" onclick="concatStatement('0')">0</button>
+                <button id="decimal" onclick="concatStatement('.')">.</button>
+                <button id="negative" onclick="concatStatement('n')">(-)</button>
             </div>
             <div id="operators">
-                <button id="division">÷</button>
-                <button id="multiplication">x</button>
-                <button id="subtraction">-</button>
-                <button id="addition">+</button>
-                <button id="equals">=</button>
+                <button id="division" onclick="concatStatement('/')">÷</button>
+                <button id="multiplication" onclick="concatStatement('*')">x</button>
+                <button id="subtraction" onclick="concatStatement('-')">-</button>
+                <button id="addition" onclick="concatStatement('+')">+</button>
+                <button id="equals" onclick="readStatement()">=</button>
             </div>
             <div id="first_buttons">
                 <button id="second">2nd</button>
@@ -55,7 +56,7 @@
                 <button id="sine">SIN<br>SIN<sup>-1</sup></button>
                 <button id="cosine">COS<br>COS<sup>-1</sup></button>
                 <button id="tangent">TAN<br>TAN<sup>-1</sup></button>
-                <button id="clear">CLEAR</button>
+                <button id="clear" onclick="clearScreen()">CLEAR</button>
             </div>
             <div id="second_buttons">
                 <button id="power">^<br>x√</button>
@@ -64,9 +65,10 @@
                 <button id="right_p">)<br>,</button>
                 <button id="square">x<sup>2</sup><br>√</button>
                 <button id="variable">MEMVAR<br>CLRVAR</button>
-                <button id="onoff">ON<br>OFF</button>
+                <button id="onoff" onclick="togglePower()">ON<br>OFF</button>
                 <button id="store">STO&gt<br>rcl</button>
             </div>
         </div>
+        <script src="calculator.js"></script>
     </body>
 </html>
