@@ -1,6 +1,11 @@
 power=false;
 current="";
 const operators = new Set(['+','-','*','/']);
+const buttons = document.getElementsByTagName("button");
+for (const button of buttons) {
+    button.disabled = true;
+}
+document.getElementById('onoff').disabled = false;
 memory = {
     previousStatement:"0",
     previousAnswer:"0",
@@ -14,14 +19,22 @@ function togglePower(){
         document.getElementById('screen').style.backgroundColor = "white";
         document.getElementById('displayOne').style.display = "block";
         document.getElementById('displayTwo').style.display = "block";
+        for (const button of buttons) {
+            button.disabled = false;
+        }
         console.log('Power On...')
     }
     else {
         document.getElementById('screen').style.backgroundColor = "grey";
         document.getElementById('displayOne').style.display = "none";
         document.getElementById('displayTwo').style.display = "none";
+        clearScreen();
+        for (const button of buttons) {
+            button.disabled = true;
+        }
         console.log('Power Off...');
     }
+    document.getElementById('onoff').disabled = false;
 }
 function setTopRow(topDisplay){
     document.getElementById('displayOne').innerHTML = topDisplay;
