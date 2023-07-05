@@ -11,14 +11,14 @@
     <body>
         <div id="calculator">
             <div id="screen">
-                <p id="displayOne"></p>
-                <p id="displayTwo"></p>
+                <div id="topRow" align="right"></div>
+                <div id="bottomRow"><p id="bottomDisplay"></p><p id="cursor">0</p></div>
             </div>
             <div id="arrows">
                 <button id="up">⬆</button>
-                <button id="right">➡</button>
+                <button id="right" onclick="moveRight()">➡</button>
                 <button id="down">⬇</button>
-                <button id="left">⬅</button>
+                <button id="left" onclick="moveLeft()">⬅</button>
             </div>
             <div id="numpad">
                 <button id="seven" onclick="concatStatement('7')">7</button>

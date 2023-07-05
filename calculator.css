@@ -8,7 +8,7 @@ sup, sub {
     font-size: small;
 }
 @font-face{
-    font-family: 'digital-clock-font';
+    font-family: 'calculator-font';
     src:url('digital-7\ \(mono\).ttf')
 }
 #calculator {
@@ -30,19 +30,42 @@ sup, sub {
     border:2px solid;
     background-color: grey;
 }
-#displayOne, #displayTwo {
+#topRow, #bottomRow {
     display:none;
     position: absolute;
+    width:818px;
     height:30px;
     left:5px;
-    width:818px;
-    font-size: xx-large;
+    font-size: 36px;
+    font-family: calculator-font;
+    font-weight: bold;
+    resize: none;
 }
-#displayOne {
-    bottom:8px;
+#topRow {
+    top:5px;
 }
-#displayTwo {
-    top:8px;
+#bottomRow {
+    bottom:11px;
+}
+#bottomDisplay {
+    position: absolute;
+    height:30px;
+    top:-37px;
+    font-size: 36px;
+    font-family: calculator-font;
+    font-weight: bold;
+    z-index: 2;
+}
+#cursor {
+    z-index: 1;
+    height:30px;
+    position: relative;
+    width:18px;
+    top:-37px;
+    left:0px;
+    font-size: 36px;
+    color:white;
+    background-color: white;
 }
 button {
     width:76px;
