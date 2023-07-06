@@ -24,6 +24,7 @@ cursor = {
     cursorID: document.getElementById('cursor'),
     cursorOn: false,
     cursorInterval: null,
+    altCursorInterval:null,
     cursorPos: 0,
     cursorRow: 0
 }
@@ -64,7 +65,6 @@ function concatStatement(nextChar) {
     if(current=="") {
         if(operators.has(nextChar)){
             concatStatement(memory.previousAnswer);
-            console.log("Previous answer fetched!");
         }
     }
     if(nextChar=='n'){
@@ -79,7 +79,14 @@ function concatStatement(nextChar) {
 }
 function readStatement(){
     //evaluates the current statement
-    if(current==""){
+    if(cursor.cursorRow > 0) {
+        concatStatement(getMem(cursor.cursorRow));
+        cursor.cursorRow=0;
+        moveScreen(cursor.cursorRow);
+        console.log('Previous answer/statement fetched!');
+        return;
+    }
+    else if(current==""){
         concatStatement(memory.previousAnswer);
         console.log("Previous answer fetched!");
         return;
@@ -97,11 +104,27 @@ function setMem(statement, answer){
     memory.previousStatement=statement;
     memory.previousAnswer=answer;
 }
+function getMem(row){
+    if(row==1) {
+        return memory.previousAnswer;
+    }
+    else if(row==2) {
+        return memory.previousStatement;
+    }
+    if(row==3) {
+        return memory.precedingAnswer;
+    }
+    if(row==4) {
+        return memory.precedingStatement;
+    }
+}
 function clearScreen(){
     current="";
     setTopRow(current);
     setBottomRow(current);
     resetCursor();
+    enableCursor();
+    cursor.cursorRow=0;
 }
 function moveCursor() {
     cursor.cursorPos=current.length;
@@ -122,12 +145,34 @@ function flipCursor(){
         cursor.cursorID.style.color = "white";
     }
 }
+function altFlipCursor(){
+    cursor.cursorOn = !(cursor.cursorOn);
+    if(cursor.cursorOn) {
+        document.getElementById('bottomDisplay').style.backgroundColor='black';
+        document.getElementById('bottomDisplay').style.color='white';
+    }
+    else {
+        document.getElementById('bottomDisplay').style.backgroundColor='white';
+        document.getElementById('bottomDisplay').style.color='black';
+    }
+}
 function enableCursor(){
     clearInterval(cursor.cursorInterval);
     cursor.cursorInterval = setInterval(flipCursor, 530);
 }
+function enableAltCursor(){
+    clearInterval(cursor.altCursorInterval);
+    cursor.altCursorInterval = setInterval(altFlipCursor, 530);
+}
 function disableCursor(){
     clearInterval(cursor.cursorInterval);
+    cursor.cursorID.style.backgroundColor = "white";
+    cursor.cursorID.style.color = "white";
+}
+function disableAltCursor() {
+    clearInterval(cursor.altCursorInterval);
+    document.getElementById('bottomDisplay').style.backgroundColor='white';
+    document.getElementById('bottomDisplay').style.color='black';
 }
 function moveLeft() {
     if(cursor.cursorPos>0) {
@@ -144,6 +189,46 @@ function moveRight() {
 function moveUp() {
     if(cursor.cursorRow<4) {
         cursor.cursorRow++;
-        
+        moveScreen(cursor.cursorRow);
+        disableCursor();
+        enableAltCursor();
+    }
+}
+function moveDown() {
+    if(cursor.cursorRow>0) {
+        cursor.cursorRow--;
+        moveScreen(cursor.cursorRow);
+        enableAltCursor();
+        if(cursor.cursorRow==0){
+            disableAltCursor();
+            enableCursor();
+        }
+    }
+    console.log('cursorRow is', cursor.cursorRow);
+}
+function moveScreen(row){
+    cursor.cursorRow=row;
+    if(cursor.cursorRow==0) {
+        setBottomRow(current);
+        setTopRow(memory.previousAnswer);
+        disableAltCursor();
+        enableCursor();
+        console.log(current);
+    }
+    if(cursor.cursorRow==1) {
+        setBottomRow(memory.previousAnswer);
+        setTopRow(memory.previousStatement);
+    }
+    else if(cursor.cursorRow==2) {
+        setBottomRow(memory.previousStatement);
+        setTopRow(memory.precedingAnswer);
+    }
+    else if(cursor.cursorRow==3) {
+        setBottomRow(memory.precedingAnswer);
+        setTopRow(memory.precedingStatement);
+    }
+    else if(cursor.cursorRow==4) {
+        setBottomRow(memory.precedingStatement);
+        setTopRow("");
     }
 }
