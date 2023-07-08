@@ -42,31 +42,31 @@
                 <button id="equals" onclick="readStatement()">=</button>
             </div>
             <div id="first_buttons">
-                <button id="second">2nd</button>
-                <button id="angle_mode">DRG<br>SCI/ENG</button>
-                <button id="delete">DEL<br>INS</button>
-                <button id="logarithm">LOG<br>10<sup>X</sup></button>
-                <button id="functions">PRB<br>F&lt&gtD</button>
-                <button id="angle_modifier"><strong>°'"</strong><br>R&lt&gtP</button>
-                <button id="natural_log">LN<br>e<sup>X</sup></button>
-                <button id="fraction">A<sup>b</sup>/<sub>c</sub><br>frac&lt&gtdec</button>
-                <button id="data">DATA<br>STAT</button>
-                <button id="statvar">STATVAR<br>EXIT STAT</button>
-                <button id="pi">&#960<br>HYP</button>
-                <button id="sine">SIN<br>SIN<sup>-1</sup></button>
-                <button id="cosine">COS<br>COS<sup>-1</sup></button>
-                <button id="tangent">TAN<br>TAN<sup>-1</sup></button>
+                <button id="second" onclick="toggleSecond()">2nd</button>
+                <button id="angle_mode"><span class='first'>DRG</span><br><span class='second'>SCI/ENG</span></button>
+                <button id="delete"><span class='first'>DEL</span><br><span class='second'>INS</span></button>
+                <button id="logarithm"><span class='first'>LOG</span><br><span class='second'>10<sup>X</span></sup></button>
+                <button id="functions"><span class='first'>PRB</span><br><span class='second'>F&lt&gtD</span></button>
+                <button id="angle_modifier"><span class='first'><strong>°'"</strong></span><br><span class='second'>R&lt&gtP</span></button>
+                <button id="natural_log"><span class='first'>LN</span><br><span class='second'>e<sup>X</sup></span></button>
+                <button id="fraction"><span class='first'>A<sup>b</sup>/<sub>c</sub></span><br><span class='second'>frac&lt&gtdec</span></button>
+                <button id="data"><span class='first'>DATA</span><br><span class='second'>STAT</span></button>
+                <button id="statvar"><span class='first'>STATVAR</span><br><span class='second'>EXIT STAT</span></button>
+                <button id="pi"><span class='first'>&#960</span><br><span class='second'>HYP</span></button>
+                <button id="sine" onclick="sinArcSin()"><span class='first'>SIN</span><br><span class='second'>SIN<sup>-1</sup></span></button>
+                <button id="cosine" onclick="cosArcCos()"><span class='first'>COS</span><br><span class='second'>COS<sup>-1</sup></span></button>
+                <button id="tangent" onclick="tanArcTan()"><span class='first'>TAN</span><br><span class='second'>TAN<sup>-1</sup></span></button>
                 <button id="clear" onclick="clearScreen()">CLEAR</button>
             </div>
             <div id="second_buttons">
-                <button id="power">^<br>x√</button>
-                <button id="reciprocal">x<sup>-1</sup><br>EE</button>
-                <button id="left_p">(<br>%</button>
-                <button id="right_p">)<br>,</button>
-                <button id="square">x<sup>2</sup><br>√</button>
-                <button id="variable">MEMVAR<br>CLRVAR</button>
+                <button id="power"><span class='first'>^</span><br><span class='second'>x√</span></button>
+                <button id="reciprocal"><span class='first'>x<sup>-1</sup></span><br><span class='second'>EE</span></button>
+                <button id="left_p" onclick="concatStatement('&#x28')"><span class='first'>(</span><br><span class='second'>%</span></button>
+                <button id="right_p" onclick="concatStatement('&#x29')"><span class='first'>)</span><br><span class='second'>,</span></button>
+                <button id="square"><span class='first'>x<sup>2</sup></span><br><span class='second'>√</span></button>
+                <button id="variable"><span class='first'>MEMVAR</span><br><span class='second'>CLRVAR</span></button>
                 <button id="onoff" onclick="togglePower()">ON<br>OFF</button>
-                <button id="store">STO&gt<br>rcl</button>
+                <button id="store"><span class='first'>STO&gt</span><br><span class='second'>RCL</span></button>
             </div>
         </div>
         <script src="calculator.js"></script>

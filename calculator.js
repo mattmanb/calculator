@@ -28,6 +28,7 @@ cursor = {
     cursorPos: 0,
     cursorRow: 0
 }
+second = false;
 function togglePower(){
     //This function turns the power on or off
     power =! power;
@@ -117,14 +118,6 @@ function getMem(row){
     if(row==4) {
         return memory.precedingStatement;
     }
-}
-function clearScreen(){
-    current="";
-    setTopRow(current);
-    setBottomRow(current);
-    resetCursor();
-    enableCursor();
-    cursor.cursorRow=0;
 }
 function moveCursor() {
     cursor.cursorPos=current.length;
@@ -231,4 +224,57 @@ function moveScreen(row){
         setBottomRow(memory.precedingStatement);
         setTopRow("");
     }
+}
+function toggleSecond() {
+    second = !second;
+    let firstClass = document.getElementsByClassName('first');
+    let secondClass = document.getElementsByClassName('second');
+    if(second) {
+        for(elem of firstClass) {
+            elem.style.color='white';
+        }
+        for(elem of secondClass) {
+            elem.style.color='black';
+        }
+    }
+    else{
+        for(elem of firstClass) {
+            elem.style.color='black';
+        }
+        for(elem of secondClass) {
+            elem.style.color='white';
+        }
+    }
+}
+function sinArcSin() {
+    if(second) {
+        concatStatement("Math.asin(");
+    }
+    else {
+        concatStatement("Math.sin(");
+    }
+}
+function cosArcCos() {
+    if(second) {
+        concatStatement("Math.acos(");
+    }
+    else {
+        concatStatement("Math.cos(");
+    }
+}
+function tanArcTan() {
+    if(second) {
+        concatStatement("Math.atan(");
+    }
+    else {
+        concatStatement("Math.tan(");
+    }
+}
+function clearScreen(){
+    current="";
+    setTopRow(current);
+    setBottomRow(current);
+    resetCursor();
+    enableCursor();
+    cursor.cursorRow=0;
 }

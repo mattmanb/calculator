@@ -148,13 +148,15 @@ button:hover {
 #operators > button:hover {
     background-color: yellow;
 }
+span {
+    font-size: medium;
+}
 #first_buttons {
     position:absolute;
     width:608px;
     height:380px;
     top:114px;
     left:0px;
-    
 }
 #first_buttons > button {
     position: absolute;
@@ -162,90 +164,98 @@ button:hover {
 /*These are all positioning attributes for first_buttons*/
 #second{
     font-size: large;}
+.second {
+    color:white;
+}
+#fraction > span {
+    font-size:small;
+}
 #angle_mode{
     left:114px;
-    font-size: medium;}
+}
 #delete{
     left:228px;
-    font-size: large;}
+}
 #logarithm{
     left:342px;
-    font-size: large;}
+}
 #functions{
     left:456px;
-    font-size: large;}
+}
 #angle_modifier{
     top:114px;
-    font-size: medium;}
+}
 #natural_log{
     left:114px;
     top:114px;
-    font-size: large;}
+}
 #fraction{
     left:228px;
     top:114px;
-    font-size: small;}
+}
 #data{
     left:342px;
     top:114px;
-    font-size: large;}
+}
 #statvar{
     left:456px;
     top:114px;
-    font-size: small;}
+}
+#statvar > .second {
+    font-size: x-small;
+}
 #pi{
     top:228px;
-    font-size: large;}
+}
 #sine{
     left:114px;
     top:228px;
-    font-size: large;}
+}
 #cosine{
     left:228px;
     top:228px;
-    font-size: large;}
+}
 #tangent{
     left:342px;
     top:228px;
-    font-size: large;}
+}
 #clear{
     left:456px;
     top:228px;
-    font-size: large;}
+    font-size: medium;
+}
 #second_buttons{
     position: absolute;
     top:456px;
     left:0px;
     width:266px;
     height:494px;
-    
 }
 #second_buttons > button {
     position:absolute;
 }
-#power{
-    font-size: large;}
 #reciprocal{
     left:114px;
-    font-size: large;}
+}
 #left_p{
     top:114px;
-    font-size: large;}
+}
 #right_p{
     left:114px;
     top:114px;
-    font-size: large;}
+}
 #square{
     top:228px;
-    font-size: large;}
+}
 #variable{
     left:114px;
     top:228px;
-    font-size: small;}
+}
 #onoff{
     top:342px;
-    font-size: large;}
+    font-size: medium;
+}
 #store{
     left:114px;
     top:342px;
-    font-size: large;}
+}
