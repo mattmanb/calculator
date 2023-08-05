@@ -17,7 +17,7 @@ sup, sub {
     top:50%;
     transform:translate(-50%, -50%);
     width:912px;
-    height:988px;
+    height:950px;
     border:2px solid;
     background-color: #e0e4e8;
 }
@@ -124,7 +124,7 @@ button:hover {
 #numpad {
     position:absolute;
     left:266px;
-    top:494px;
+    top:380px;
     width:380px;
     height:494px;
 }
@@ -140,10 +140,10 @@ button:hover {
     top:380px;
     width:152px;
     height:608px;
-    
 }
 #operators > button{
     background-color:#b0b987;
+    margin-top: 19px;
 }
 #operators > button:hover {
     background-color: yellow;
@@ -190,15 +190,11 @@ span {
     top:114px;
 }
 #fraction{
-    left:228px;
-    top:114px;
+    left:114px;
+    top:228px;
 }
 #data{
     left:342px;
-    top:114px;
-}
-#statvar{
-    left:456px;
     top:114px;
 }
 #statvar > .second {
@@ -208,20 +204,20 @@ span {
     top:228px;
 }
 #sine{
-    left:114px;
-    top:228px;
+    left:228px;
+    top:114px;
 }
 #cosine{
-    left:228px;
-    top:228px;
+    left:342px;
+    top:114px;
 }
 #tangent{
-    left:342px;
-    top:228px;
+    left:456px;
+    top:114px;
 }
 #clear{
-    left:456px;
-    top:228px;
+    left:114px;
+    top:342px;
     font-size: medium;
 }
 #second_buttons{
@@ -257,5 +253,5 @@ span {
 }
 #store{
     left:114px;
-    top:342px;
+    top:228px;
 }

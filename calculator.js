@@ -26,33 +26,19 @@ cursor = {
     cursorInterval: null,
     altCursorInterval:null,
     cursorPos: 0,
-    cursorRow: 0
+    cursorRow: 0,
+    insert: false,
+    replace: false,
+    exponent: false
 }
 second = false;
-function togglePower(){
-    //This function turns the power on or off
-    power =! power;
-    if(power) {
-        document.getElementById('screen').style.backgroundColor = "white";
-        document.getElementById('topRow').style.display = "block";
-        document.getElementById('bottomRow').style.display = "block";
-        for (const button of buttons) {
-            button.disabled = false;
-        }
-        enableCursor();
-    }
-    else {
-        document.getElementById('screen').style.backgroundColor = "grey";
-        document.getElementById('topRow').style.display = "none";
-        document.getElementById('bottomRow').style.display = "none";
-        clearScreen();
-        for (const button of buttons) {
-            button.disabled = true;
-        }
-        disableCursor();
-    }
-    document.getElementById('onoff').disabled = false;
-}
+degreeMode = {
+    active:false,
+    deg:true,
+    rad:false
+};
+const trigFuncs = new Set(['sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'sinh', 'cosh', 'tanh']);
+
 function setTopRow(topDisplay){
     //sets the first row of the screen's display
     document.getElementById('topRow').innerHTML = topDisplay;
@@ -62,6 +48,10 @@ function setBottomRow(bottomDisplay){
     document.getElementById('bottomDisplay').innerHTML = bottomDisplay;
 }
 function concatStatement(nextChar) {
+    if(degreeMode.active) {
+        degreeMode.active = false;
+        clearScreen();
+    }
     //adds input to the current statement (operator first will take previous answer)
     if(current=="") {
         if(operators.has(nextChar)){
@@ -71,12 +61,24 @@ function concatStatement(nextChar) {
     if(nextChar=='n'){
         current+='-';
     }
+    else if(cursor.insert) {
+        if(cursor.replace) {
+            current = current.substring(0, cursor.cursorPos) + 
+                        nextChar + 
+                        current.substring(cursor.cursorPos+1, current.length);
+            console.log(current)
+        }
+        else {
+            current = current.substring(0, cursor.cursorPos) + 
+                        nextChar + 
+                        current.substring(cursor.cursorPos, current.length);
+        }
+    }
     else {
         current += nextChar;
     }
     setBottomRow(current);
     moveCursor();
-    cursor.curserPos = current.length;
 }
 function readStatement(){
     //evaluates the current statement
@@ -87,16 +89,42 @@ function readStatement(){
         console.log('Previous answer/statement fetched!');
         return;
     }
+    else if(degreeMode.active) {
+        if(cursor.cursorPos==2) {
+            degreeMode.deg = false;
+            degreeMode.rad = true;
+            setTopRow("Radian mode active");
+        }
+        else {
+            degreeMode.deg = true;
+            degreeMode.rad = false;
+            setTopRow("Degree mode active");
+        } 
+        degreeMode.active=false;
+        current="";
+        setBottomRow(current);
+    }
     else if(current==""){
         concatStatement(memory.previousAnswer);
         console.log("Previous answer fetched!");
         return;
     }
-    ans = eval(current);
-    setMem(current,ans);
-    current="";
-    setTopRow(ans);
-    setBottomRow(current);
+    else {
+        if(degreeMode.deg) {
+            convertAngles();
+        }
+        ans = eval(current);
+        if(ans<.00001 && ans>-.00001) {
+            ans = 0;
+        }
+        else if(isNaN(ans)) {
+            ans="Not a number!";
+        }
+        setMem(current,ans);
+        current="";
+        setTopRow(ans);
+        setBottomRow(current);
+    }
     resetCursor();
 }
 function setMem(statement, answer){
@@ -120,18 +148,29 @@ function getMem(row){
     }
 }
 function moveCursor() {
-    cursor.cursorPos=current.length;
+    if(!cursor.insert) {
+        cursor.cursorPos=current.length;
+    }
     cursor.cursorID.style.left=cursor.cursorPos*charWidth + 'px';
 }
 function resetCursor(){
     cursor.cursorPos = 0;
     cursor.cursorID.style.left=0 + 'px';
+    cursor.insert = false;
+    cursor.replace = false;
 }
 function flipCursor(){
     cursor.cursorOn = !(cursor.cursorOn);
     if(cursor.cursorOn) {
-        cursor.cursorID.style.backgroundColor = "black";
-        cursor.cursorID.style.color = "black";
+        if(cursor.insert) {
+            cursor.cursorID.style.backgroundColor = "orchid";
+            cursor.cursorID.style.color = "orchid";
+        }
+        else {
+            cursor.cursorID.style.backgroundColor = "black";
+            cursor.cursorID.style.color = "black";
+        }
+        
     }
     else {
         cursor.cursorID.style.backgroundColor = "white";
@@ -168,13 +207,21 @@ function disableAltCursor() {
     document.getElementById('bottomDisplay').style.color='black';
 }
 function moveLeft() {
+    if(degreeMode.active && cursor.cursorPos>0) {
+        cursor.cursorID.style.left = cursor.cursorPos*16.5 - 33 + 'px';
+        cursor.cursorPos-=2;
+    }
     if(cursor.cursorPos>0) {
         cursor.cursorID.style.left = cursor.cursorPos*16.5 - 16.5 + 'px';
         cursor.cursorPos--;
     }
 }
 function moveRight() {
-    if(current.length>cursor.cursorPos) {
+    if(degreeMode.active && current.length>cursor.cursorPos) {
+        moveCursor();
+        cursor.cursorPos+=2;
+    }
+    else if(current.length>cursor.cursorPos) {
         cursor.cursorID.style.left = cursor.cursorPos*16.5 + 16.5 + 'px';
         cursor.cursorPos++;
     }
@@ -246,6 +293,129 @@ function toggleSecond() {
         }
     }
 }
+function toggleDegreeMode() {
+    degreeMode.active=true;
+    clearScreen();
+    current="D R";
+    setBottomRow(current);
+}
+function degreeToRadian(degAngle) {
+    let radAngle = degAngle * (Math.PI/180);
+    return radAngle;
+}
+function convertAngles() { 
+    //this function converts all angles in the
+    //current string from degrees to radians for
+    //the Math.trig function to work correctly
+    //(this is only called during 'readstatement'
+    //when degree mode is active)
+    found = true;
+    let index = 0;
+    let currentAngle="";
+    let convertedAngle=0;
+    let endAngle=0;
+    while(index+5<current.length) {
+        //gets string of next three characters in the current string
+        let nextThree = current.substring(index, index+3);
+        //gets string of next four characters in the current string
+        let nextFour = current.substring(index, index+4);
+        if(trigFuncs.has(nextThree)) {
+            index+=4;
+            endAngle=current.indexOf(')',index);
+            currentAngle=current.substring(index,endAngle);
+            convertedAngle=degreeToRadian(parseInt(currentAngle));
+            newCurrent=current.replace(currentAngle, convertedAngle.toString());
+            current=newCurrent;
+            index=endAngle+1;
+        }
+        else if(trigFuncs.has(nextFour)) {
+            index+=5;
+            endAngle=current.indexOf(')',index);
+            currentAngle=current.substring(index,endAngle);
+            convertedAngle=degreeToRadian(parseInt(currentAngle));
+            newCurrent=current.replace(currentAngle, convertedAngle.toString());
+            current=newCurrent;
+            index=endAngle+1;
+        }
+        index++;
+    }
+}
+function del_ins() {
+    //Insert function
+    if(second) {
+        cursor.insert = !cursor.insert;
+        console.log("Insert is", cursor.insert);
+    }
+    //Delete Function
+    else {
+        if(cursor.cursorPos == 0) {
+            current = current.substring(1, current.length);
+        }
+        else if(cursor.cursorPos == current.length-1) {
+            current = current.substring(0, current.length-1);
+        }
+        else {
+            current = current.substring(0, cursor.cursorPos)
+                        + current.substring(cursor.cursorPos+1, current.length);
+        }
+        setBottomRow(current);
+    }
+}
+function log_antiLog() {
+    if(second) {
+
+    }
+    else {
+        concatStatement("Math.log10(");
+    }
+}
+function fact_fracDec() {
+    if(second) {
+
+    }
+    else {
+        concatStatement("factorial(");
+    }
+}
+function factorial(num) {
+    if(num==0 || num == 1) {
+        return 1;
+    }
+    for(let i = num - 1; i >= 1; i--) {
+        num *= i;
+    }
+    return num;
+}
+function degRad_coord() {
+    degreeMode.active=true;
+    clearScreen();
+    current="° r";
+    setBottomRow(current);
+}
+function natLog_antiNatLog() {
+    if(second) {
+
+    }
+    else {
+        concatStatement("Math.log(");
+    }
+}
+function mixedFrac_convertFrac() {
+    concatStatement("X+n/d");
+    cursor.insert = true;
+    cursor.replace = true;
+    while(cursor.cursorPos > 0) {
+        moveLeft();
+    }
+}
+function pi_hyp() {
+    if(second) {
+
+    }
+    else {
+        concatStatement("Math.PI");
+    }
+}
 function sinArcSin() {
     if(second) {
         concatStatement("Math.asin(");
@@ -277,4 +447,76 @@ function clearScreen(){
     resetCursor();
     enableCursor();
     cursor.cursorRow=0;
+}
+function power_xRoot() {
+    if(second) {
+
+    }
+    else {
+        concatStatement("**");
+    }
+}
+function recip_expo() {
+    if(second) {
+
+    }
+    else {
+        concatStatement("**-1");
+    }
+}
+function leftP_percent() {
+    if(second) {
+
+    }
+    else {
+        concatStatement('&#x28');
+    }
+}
+function rightP_comma() {
+    if(second) {
+        concatStatement(",");
+    }
+    else {
+        concatStatement('&#x29');
+    }
+}
+function square_squareRoot() {
+    if(second) {
+
+    }
+    else {
+        concatStatement("**2");
+    }
+}
+function memVar_clrVar() {
+    if(second) {
+
+    }
+    else {
+
+    }
+}
+function togglePower(){
+    //This function turns the power on or off
+    power =! power;
+    if(power) {
+        document.getElementById('screen').style.backgroundColor = "white";
+        document.getElementById('topRow').style.display = "block";
+        document.getElementById('bottomRow').style.display = "block";
+        for (const button of buttons) {
+            button.disabled = false;
+        }
+        enableCursor();
+    }
+    else {
+        document.getElementById('screen').style.backgroundColor = "grey";
+        document.getElementById('topRow').style.display = "none";
+        document.getElementById('bottomRow').style.display = "none";
+        clearScreen();
+        for (const button of buttons) {
+            button.disabled = true;
+        }
+        disableCursor();
+    }
+    document.getElementById('onoff').disabled = false;
 }
