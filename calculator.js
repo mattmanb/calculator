@@ -38,7 +38,8 @@ degreeMode = {
     rad:false
 };
 const trigFuncs = new Set(['sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'sinh', 'cosh', 'tanh']);
-
+//hyperbolic function mode for trig functions
+let hyp = false;
 function setTopRow(topDisplay){
     //sets the first row of the screen's display
     document.getElementById('topRow').innerHTML = topDisplay;
@@ -363,7 +364,7 @@ function del_ins() {
 }
 function log_antiLog() {
     if(second) {
-
+        concatStatement("10**");
     }
     else {
         concatStatement("Math.log10(");
@@ -394,7 +395,7 @@ function degRad_coord() {
 }
 function natLog_antiNatLog() {
     if(second) {
-
+        concatStatement("Math.E**");
     }
     else {
         concatStatement("Math.log(");
@@ -410,7 +411,7 @@ function mixedFrac_convertFrac() {
 }
 function pi_hyp() {
     if(second) {
-
+        hyp = true;
     }
     else {
         concatStatement("Math.PI");
@@ -418,15 +419,34 @@ function pi_hyp() {
 }
 function sinArcSin() {
     if(second) {
-        concatStatement("Math.asin(");
+        if(hyp) {
+            concatStatement("Math.asinh(");
+            hyp = false;
+        }
+        else {
+            concatStatement("Math.asin(");
+
+        }
     }
     else {
-        concatStatement("Math.sin(");
+        if(hyp) {
+            concatStatement("Math.sinh(");
+            hyp = false;
+        }
+        else {
+            concatStatement("Math.sin(");
+        }
     }
 }
 function cosArcCos() {
     if(second) {
-        concatStatement("Math.acos(");
+        if(hyp) {
+            concatStatement("Math.acosh(");
+            hyp = false;
+        }
+        else {
+            concatStatement("Math.acos(");
+        }
     }
     else {
         concatStatement("Math.cos(");
@@ -434,10 +454,22 @@ function cosArcCos() {
 }
 function tanArcTan() {
     if(second) {
-        concatStatement("Math.atan(");
+        if(hyp) {
+            concatStatement("Math.atanh(");
+            hyp = false;
+        }
+        else {
+            concatStatement("Math.atan(");
+        }
     }
     else {
-        concatStatement("Math.tan(");
+        if(hyp) {
+            concatStatement("Math.tanh(");
+            hyp = false;
+        }
+        else {
+            concatStatement("Math.tan(");
+        }
     }
 }
 function clearScreen(){
