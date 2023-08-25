@@ -127,6 +127,7 @@ function readStatement(){
         setBottomRow(current);
     }
     resetCursor();
+    second = false;
 }
 function setMem(statement, answer){
     memory.precedingStatement=memory.previousStatement;
@@ -149,7 +150,10 @@ function getMem(row){
     }
 }
 function moveCursor() {
-    if(!cursor.insert) {
+    if(degreeMode.active) {
+        cursor.cursorPos=2; //only moveRight calls moveCursor
+    }
+    else if(!cursor.insert) {
         cursor.cursorPos=current.length;
     }
     cursor.cursorID.style.left=cursor.cursorPos*charWidth + 'px';
@@ -220,7 +224,6 @@ function moveLeft() {
 function moveRight() {
     if(degreeMode.active && current.length>cursor.cursorPos) {
         moveCursor();
-        cursor.cursorPos+=2;
     }
     else if(current.length>cursor.cursorPos) {
         cursor.cursorID.style.left = cursor.cursorPos*16.5 + 16.5 + 'px';
@@ -274,7 +277,8 @@ function moveScreen(row){
     }
 }
 function toggleSecond() {
-    second = !second;
+    second = !(second);
+    console.log(second);
     let firstClass = document.getElementsByClassName('first');
     let secondClass = document.getElementsByClassName('second');
     if(second) {
@@ -346,6 +350,7 @@ function del_ins() {
     if(second) {
         cursor.insert = !cursor.insert;
         console.log("Insert is", cursor.insert);
+        toggleSecond();
     }
     //Delete Function
     else {
@@ -365,6 +370,7 @@ function del_ins() {
 function log_antiLog() {
     if(second) {
         concatStatement("10**");
+        toggleSecond();
     }
     else {
         concatStatement("Math.log10(");
@@ -372,7 +378,7 @@ function log_antiLog() {
 }
 function fact_fracDec() {
     if(second) {
-
+        toggleSecond();
     }
     else {
         concatStatement("factorial(");
@@ -396,6 +402,7 @@ function degRad_coord() {
 function natLog_antiNatLog() {
     if(second) {
         concatStatement("Math.E**");
+        toggleSecond();
     }
     else {
         concatStatement("Math.log(");
@@ -412,6 +419,7 @@ function mixedFrac_convertFrac() {
 function pi_hyp() {
     if(second) {
         hyp = true;
+        toggleSecond();
     }
     else {
         concatStatement("Math.PI");
@@ -425,8 +433,8 @@ function sinArcSin() {
         }
         else {
             concatStatement("Math.asin(");
-
         }
+        toggleSecond();
     }
     else {
         if(hyp) {
@@ -447,6 +455,7 @@ function cosArcCos() {
         else {
             concatStatement("Math.acos(");
         }
+        toggleSecond();
     }
     else {
         concatStatement("Math.cos(");
@@ -461,6 +470,7 @@ function tanArcTan() {
         else {
             concatStatement("Math.atan(");
         }
+        toggleSecond();
     }
     else {
         if(hyp) {
@@ -482,7 +492,8 @@ function clearScreen(){
 }
 function power_xRoot() {
     if(second) {
-
+        concatStatement("**(1/");
+        toggleSecond();
     }
     else {
         concatStatement("**");
@@ -490,7 +501,8 @@ function power_xRoot() {
 }
 function recip_expo() {
     if(second) {
-
+        concatStatement("*Math.pow(10,");
+        toggleSecond();
     }
     else {
         concatStatement("**-1");
@@ -498,23 +510,25 @@ function recip_expo() {
 }
 function leftP_percent() {
     if(second) {
-
+        toggleSecond();
     }
     else {
-        concatStatement('&#x28');
+        concatStatement('(');
     }
 }
 function rightP_comma() {
     if(second) {
         concatStatement(",");
+        toggleSecond();
     }
     else {
-        concatStatement('&#x29');
+        concatStatement(')');
     }
 }
 function square_squareRoot() {
     if(second) {
-
+        concatStatement("Math.sqrt(");
+        toggleSecond();
     }
     else {
         concatStatement("**2");
@@ -522,7 +536,7 @@ function square_squareRoot() {
 }
 function memVar_clrVar() {
     if(second) {
-
+        toggleSecond();
     }
     else {
 

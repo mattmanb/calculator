@@ -127,6 +127,7 @@ button:hover {
     top:380px;
     width:380px;
     height:494px;
+    z-index: 2;
 }
 #numpad > button {
     background-color:#b0b987;
@@ -180,7 +181,8 @@ span {
     left:342px;
 }
 #functions{
-    left:456px;
+    left:114px;
+    top:228px;
 }
 #angle_modifier{
     top:114px;
@@ -216,8 +218,7 @@ span {
     top:114px;
 }
 #clear{
-    left:114px;
-    top:342px;
+    left:456px;
     font-size: medium;
 }
 #second_buttons{
@@ -250,8 +251,4 @@ span {
 #onoff{
     top:342px;
     font-size: medium;
-}
-#store{
-    left:114px;
-    top:228px;
 }
