@@ -534,14 +534,6 @@ function square_squareRoot() {
         concatStatement("**2");
     }
 }
-function memVar_clrVar() {
-    if(second) {
-        toggleSecond();
-    }
-    else {
-
-    }
-}
 function togglePower(){
     //This function turns the power on or off
     power =! power;
